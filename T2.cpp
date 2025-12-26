@@ -1,23 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
 struct node{
-    int x,y;
+    long long x,y;
 }f[200];
-int x[15],y[15],z[15],idx,h[5],res;
-bool vis[300];
-int n,k,r;
-bool check(int xi,int yi,int nx,int ny,int res){
-    int dx=xi-nx;
-    int dy=yi-ny;
+long long x[1500],y[1500],z[1500],idx,h[1500],res;
+bool vis[3000];
+long long n,k,r;
+bool check(long long xi,long long yi,long long nx,long long ny,long long res){
+    long long dx=xi-nx;
+    long long dy=yi-ny;
     return dx*dx+dy*dy<=(res+r)*(res+r);
 }
-void dfs(int step){
+void dfs(long long step){
     if(step>k){
-        int cnt=0;
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=k;j++){
-                int nx=f[h[j]].x,ny=f[h[j]].y;
-                if(check(x[i],y[i],nx,ny,z[i])){
+        long long cnt=0;
+        for(long long i=1;i<=n;i++){
+            for(long long j=1;j<=k;j++){
+                long long nx=f[h[j]].x,ny=f[h[j]].y;
+                if( sqrt((x[i] - nx) * (x[i] - nx) + (y[i] - ny) * (y[i] - ny)) <= z[i] + r){
                     cnt++;
                     break;
                 }
@@ -26,7 +26,7 @@ void dfs(int step){
         res=max(cnt,res);
         return;
     }
-    for(int i=1;i<=idx;i++){
+    for(long long i=1;i<=idx;i++){
         if(!vis[i]){
             vis[i]=1;
             h[step]=i;
@@ -34,14 +34,15 @@ void dfs(int step){
             vis[i]=0;
         }
     }
+    return;
 }
 int main(){
     cin>>n>>k>>r;
-    for(int i=1;i<=n;i++){
+    for(long long i=1;i<=n;i++){
         cin>>x[i]>>y[i]>>z[i];
     }
-    for(int i=-5;i<=5;i++){
-        for(int j=-5;j<=5;j++){
+    for(long long i=-5;i<=5;i++){
+        for(long long j=-5;j<=5;j++){
             f[++idx]={i,j};
         }
     }
